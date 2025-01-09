@@ -1,0 +1,16 @@
+Package: scorekeepeR
+Type: Package
+Title: Basketball Scorekeeper Functions
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Travis", "Hinkelman",
+      email = "thinkelman@pm.me",
+      role = c("aut", "cre")
+    )
+  )
+Description: Functions for use in basketball scorekeeper app.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
