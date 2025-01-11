@@ -15,7 +15,9 @@
 
 true_shooting <- function(PTS, FTA, FGA){
   # https://en.wikipedia.org/wiki/True_shooting_percentage
-  PTS/(0.88 * FTA + 2 * FGA) * 100
+  ts = PTS/(0.88 * FTA + 2 * FGA) * 100
+  if(ts > 150) stop("TS% exceeds maximum value (150%)")
+  ts
 }
 
 
