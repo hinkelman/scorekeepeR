@@ -31,6 +31,6 @@ efficiency(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV)
 Calculate efficiency
 }
 \examples{
-efficiency(15, 9, 3, 1, 0, 6, 14, 3, 4, 1)
+efficiency(15, 9, 3, 1, 0, 14, 6, 4, 3, 1)
 
 }
