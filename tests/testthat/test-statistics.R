@@ -8,3 +8,9 @@ test_that("true shooting", {
   expect_error(true_shooting(4, 0, 1))
   expect_error(true_shooting("10", "10", "10"))
 })
+
+test_that("efficiency", {
+  expect_equal(efficiency(15, 9, 3, 1, 0, 14, 6, 4, 3, 1), 18)
+  expect_equal(efficiency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), 0)
+  expect_error(efficiency("15", 9, 3, 1, 0, 14, 6, 4, 3, 1))
+})
