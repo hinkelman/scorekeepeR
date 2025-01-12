@@ -14,6 +14,7 @@
 #'
 
 create_log_entry <- function(undo_bool, event = events, player){
+  if (!is.logical(undo_bool)) stop("undo_bool must be TRUE or FALSE")
   event = match.arg(event)
   undo = if(undo_bool) "UNDO " else ""
   paste0(undo, events_desc[events == event], " by ", player)
