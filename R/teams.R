@@ -9,11 +9,11 @@
 #'
 
 init_teams_table <- function(){
-  data.frame(TeamID = ids::random_id(),
-             Season = NA_character_,
-             League = NA_character_,
-             Team = NA_character_,
-             Coach = NA_character_)
+  data.frame(TeamID = character(),
+             Season = character(),
+             League = character(),
+             Team = character(),
+             Coach = character())
 }
 
 
@@ -28,7 +28,12 @@ init_teams_table <- function(){
 #'
 
 add_teams_row = function(teams_table){
-  rbind(teams_table, init_teams_table())
+  rbind(teams_table,
+        data.frame(TeamID = ids::random_id(),
+                   Season = NA_character_,
+                   League = NA_character_,
+                   Team = NA_character_,
+                   Coach = NA_character_))
 }
 
 
