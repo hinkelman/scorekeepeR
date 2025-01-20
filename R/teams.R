@@ -36,6 +36,32 @@ add_teams_row = function(teams_table){
                    Coach = ""))
 }
 
+#' Delete teams row
+#'
+#' Delete row from teams table and update rosters and players tables.
+#'
+#' @md
+#' @param teams_table    Teams table
+#' @param teams_row      Index of row to delete from teams table
+#' @param players_table  Players table
+#' @param rosters_table  Rosters table
+#'
+#' @return List of updated teams_table, players_table, and rosters_table.
+#'
+#' @export
+#'
+
+delete_teams_row = function(teams_table, teams_row, players_table, rosters_table){
+  if (nrow(teams_table) == 0) stop("Can't delete row from empty teams_table")
+  team_id = teams_table$TeamID[teams_row]
+  new_teams_table = teams_table[-teams_row,]
+  new_rosters_table = rosters_table[rosters_table$TeamID != team_id, ]
+  new_players_table = players_table[players_table$PlayerID %in% new_rosters_table$PlayerID, ]
+
+  list(teams_table = new_teams_table,
+       players_table = new_players_table,
+       rosters_table = new_rosters_table)
+}
 
 #' Edit teams row
 #'
