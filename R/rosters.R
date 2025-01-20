@@ -85,8 +85,8 @@ delete_roster_row = function(roster_view, roster_row, players_table, rosters_tab
   team_id = roster_view$TeamID[roster_row]
   player_id = roster_view$PlayerID[roster_row]
 
-  new_rosters_table = rosters_table[rosters_table$TeamID != team_id &
-                                      rosters_table$PlayerID != player_id, ]
+  new_rosters_table = rosters_table[!(rosters_table$TeamID == team_id &
+                                        rosters_table$PlayerID == player_id), ]
   new_players_table = players_table[players_table$PlayerID %in% new_rosters_table$PlayerID, ]
   new_roster_view = create_roster_view(new_players_table, new_rosters_table)
 
