@@ -4,9 +4,11 @@
 \alias{create_roster_view}
 \title{Create roster view}
 \usage{
-create_roster_view(players_table, rosters_table)
+create_roster_view(team_id, players_table, rosters_table)
 }
 \arguments{
+\item{team_id}{Unique identifier of a team from the teams table}
+
 \item{players_table}{Players table}
 
 \item{rosters_table}{Rosters table}

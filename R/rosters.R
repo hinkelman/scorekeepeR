@@ -21,14 +21,16 @@ init_rosters_table <- function(){
 #' Create roster view. A roster view is not saved to file.
 #'
 #' @md
+#' @param team_id        Unique identifier of a team from the teams table
 #' @param players_table  Players table
 #' @param rosters_table  Rosters table
 #'
 #' @export
 #'
 
-create_roster_view <- function(players_table, rosters_table){
+create_roster_view <- function(team_id, players_table, rosters_table){
   rosters_table |>
+    dplyr::filter(TeamID == team_id) |>
     dplyr::left_join(players_table, by = dplyr::join_by(PlayerID)) |>
     # maintain desired column order
     dplyr::select(TeamID, PlayerID, FirstName, LastName, Number)
@@ -57,7 +59,7 @@ add_roster_row = function(team_id, players_table, rosters_table){
                                        PlayerID = new_player_id,
                                        Number = ""))
 
-  new_roster_view = create_roster_view(new_players_table, dplyr::filter(new_rosters_table, TeamID == team_id))
+  new_roster_view = create_roster_view(team_id, new_players_table, new_rosters_table)
 
   list(players_table = new_players_table,
        rosters_table = new_rosters_table,
@@ -88,7 +90,7 @@ delete_roster_row = function(roster_view, roster_row, players_table, rosters_tab
   new_rosters_table = rosters_table[!(rosters_table$TeamID == team_id &
                                         rosters_table$PlayerID == player_id), ]
   new_players_table = players_table[players_table$PlayerID %in% new_rosters_table$PlayerID, ]
-  new_roster_view = create_roster_view(new_players_table, new_rosters_table)
+  new_roster_view = create_roster_view(team_id, new_players_table, new_rosters_table)
 
   list(players_table = new_players_table,
        rosters_table = new_rosters_table,
@@ -135,7 +137,7 @@ edit_roster_row = function(roster_view, roster_row, roster_col, value, players_t
                         new_rosters_table$PlayerID == player_id, col_name] = value
   }
 
-  new_roster_view = create_roster_view(new_players_table, new_rosters_table)
+  new_roster_view = create_roster_view(team_id, new_players_table, new_rosters_table)
 
   list(players_table = new_players_table,
        rosters_table = new_rosters_table,
