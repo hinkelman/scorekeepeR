@@ -4,7 +4,12 @@
 \alias{delete_teams_row}
 \title{Delete teams row}
 \usage{
-delete_teams_row(teams_table, teams_row, players_table, rosters_table)
+delete_teams_row(
+  teams_table,
+  teams_row,
+  players_table = NULL,
+  rosters_table = NULL
+)
 }
 \arguments{
 \item{teams_table}{Teams table}
