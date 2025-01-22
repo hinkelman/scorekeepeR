@@ -51,8 +51,11 @@ add_teams_row = function(teams_table){
 #' @export
 #'
 
-delete_teams_row = function(teams_table, teams_row, players_table, rosters_table){
+delete_teams_row = function(teams_table, teams_row, players_table = NULL, rosters_table = NULL){
   if (nrow(teams_table) == 0) stop("Can't delete row from empty teams_table")
+  if (is.null(players_table)) players_table = init_players_table()
+  if (is.null(rosters_table)) rosters_table = init_rosters_table()
+
   team_id = teams_table$TeamID[teams_row]
   new_teams_table = teams_table[-teams_row,]
   new_rosters_table = rosters_table[rosters_table$TeamID != team_id, ]
