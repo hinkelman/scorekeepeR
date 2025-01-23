@@ -28,7 +28,7 @@ init_players_table <- function(){
 add_players_row = function(players_table){
   rbind(players_table,
         data.frame(PlayerID = ids::random_id(),
-                   FirstName = "",
-                   LastName = ""))
+                   FirstName = NA_character_,
+                   LastName = NA_character_))
 }
 

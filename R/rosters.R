@@ -57,7 +57,7 @@ add_roster_row = function(team_id, players_table, rosters_table){
   new_rosters_table = rbind(rosters_table,
                             data.frame(TeamID = team_id,
                                        PlayerID = new_player_id,
-                                       Number = ""))
+                                       Number = NA_character_))
 
   new_roster_view = create_roster_view(team_id, new_players_table, new_rosters_table)
 

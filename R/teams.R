@@ -30,10 +30,10 @@ init_teams_table <- function(){
 add_teams_row = function(teams_table){
   rbind(teams_table,
         data.frame(TeamID = ids::random_id(),
-                   Season = "",
-                   League = "",
-                   Team = "",
-                   Coach = ""))
+                   Season = NA_character_,
+                   League = NA_character_,
+                   Team = NA_character_,
+                   Coach = NA_character_))
 }
 
 #' Delete teams row
