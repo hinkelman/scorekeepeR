@@ -1,0 +1,15 @@
+
+test_that("players", {
+  expect_length(create_player_names(NA, NA, NA, "roster"), 0)
+  expect_length(create_player_names(NA, NA, "32", "roster"), 0)
+  expect_length(create_player_names(NA, NA, NA, "scorekeeper"), 0)
+  expect_equal(create_player_names(NA, "Curry", NA, "roster"), "Curry")
+  expect_equal(create_player_names("Steph", NA, NA, "roster"), "Steph")
+  expect_equal(create_player_names("Steph", "Curry", NA, "roster"), "Steph Curry")
+  expect_equal(create_player_names("Steph", "Curry", "32", "roster"), "Steph Curry")
+  expect_equal(create_player_names(NA, NA, "32", "scorekeeper"), "#32")
+  expect_equal(create_player_names(NA, "Curry", NA, "scorekeeper"), "Curry")
+  expect_equal(create_player_names("Steph", NA, NA, "scorekeeper"), "Steph")
+  expect_equal(create_player_names("Steph", "Curry", NA, "scorekeeper"), "Steph")
+  expect_equal(create_player_names("Steph", "Curry", "32", "scorekeeper"), "Steph (#32)")
+})
