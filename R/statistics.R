@@ -10,10 +10,10 @@
 #'
 #' @export
 #' @examples
-#' true_shooting(18, 4, 12)
+#' calc_true_shooting(18, 4, 12)
 #'
 
-true_shooting <- function(PTS, FTA, FGA){
+calc_true_shooting <- function(PTS, FTA, FGA){
   # https://en.wikipedia.org/wiki/True_shooting_percentage
   ts = PTS/(0.88 * FTA + 2 * FGA) * 100
   if(ts > 150) stop("TS% exceeds maximum value (150%)")
@@ -39,10 +39,10 @@ true_shooting <- function(PTS, FTA, FGA){
 #'
 #' @export
 #' @examples
-#' efficiency(15, 9, 3, 1, 0, 14, 6, 4, 3, 1)
+#' calc_efficiency(15, 9, 3, 1, 0, 14, 6, 4, 3, 1)
 #'
 
-efficiency = function(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV){
+calc_efficiency = function(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV){
   # https://en.wikipedia.org/wiki/Efficiency_(basketball)
   PTS + REB + AST + STL + BLK - (FGA - FGM) - (FTA - FTM) - TOV
 }
