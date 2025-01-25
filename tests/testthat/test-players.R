@@ -1,5 +1,12 @@
+players_table = data.frame(PlayerID = as.character(1:3),
+                           FirstName = c("Travis", "Jared", "Owen"),
+                           LastName = "Hinkelman")
+
+pt2 = add_players_row(players_table)
 
 test_that("players", {
+  expect_equal(nrow(pt2), 4)
+  expect_equal(pt2$FirstName[4], NA_character_)
   expect_length(create_player_names(NA, NA, NA, "roster"), 0)
   expect_length(create_player_names(NA, NA, "32", "roster"), 0)
   expect_length(create_player_names(NA, NA, NA, "scorekeeper"), 0)
