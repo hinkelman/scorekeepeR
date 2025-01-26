@@ -1,4 +1,37 @@
 
+#' Points
+#'
+#' Calculate points scored
+#'
+#' @md
+#' @param FTM   Free throws made
+#' @param FGM2  Two-point field goals made
+#' @param FGM3  Three-point field goals made
+#'
+#' @export
+#'
+
+calc_points <- function(FTM, FGM2, FGM3){
+  FTM + (FGM2 * 2) + (FGM3 * 3)
+}
+
+#' Shooting percentage
+#'
+#' Calculate shooting percentage
+#'
+#' @md
+#' @param made        Shots made
+#' @param attempted   Shots attempted
+#'
+#' @export
+#'
+
+calc_shooting <- function(made, attempted){
+  pct = round(made/attempted * 100)
+  if(any(pct > 100)) stop("Shooting percentage exceeds 100%")
+  pct
+}
+
 #' True shooting percentage
 #'
 #' Calculate true shooting percentage
@@ -16,7 +49,7 @@
 calc_true_shooting <- function(PTS, FTA, FGA){
   # https://en.wikipedia.org/wiki/True_shooting_percentage
   ts = PTS/(0.88 * FTA + 2 * FGA) * 100
-  if(ts > 150) stop("TS% exceeds maximum value (150%)")
+  if(any(ts > 150)) stop("TS% exceeds maximum value (150%)")
   ts
 }
 
