@@ -4,21 +4,10 @@
 \alias{create_player_names}
 \title{Create player names}
 \usage{
-create_player_names(
-  first_names,
-  last_names,
-  numbers,
-  tab = c("roster", "scorekeeper")
-)
+create_player_names(data)
 }
 \arguments{
-\item{first_names}{Vector of players' first names}
-
-\item{last_names}{Vector of players' last names}
-
-\item{numbers}{Vector of players' numbers}
-
-\item{tab}{Tab where name will be displayed: roster or scorekeeper}
+\item{data}{Dataframe that includes columns for FirstName, LastName, and Number}
 }
 \description{
 Create player names for display in app
