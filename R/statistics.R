@@ -27,9 +27,9 @@ calc_points <- function(FTM, FGM2, FGM3){
 #'
 
 calc_shooting <- function(made, attempted){
-  pct = round(made/attempted * 100)
+  pct = made/attempted * 100
   if(any(pct > 100)) stop("Shooting percentage exceeds 100%")
-  pct
+  round(pct)
 }
 
 #' True shooting percentage
@@ -50,7 +50,7 @@ calc_true_shooting <- function(PTS, FTA, FGA){
   # https://en.wikipedia.org/wiki/True_shooting_percentage
   ts = PTS/(0.88 * FTA + 2 * FGA) * 100
   if(any(ts > 150)) stop("TS% exceeds maximum value (150%)")
-  ts
+  round(ts)
 }
 
 
@@ -79,3 +79,27 @@ calc_efficiency = function(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV){
   # https://en.wikipedia.org/wiki/Efficiency_(basketball)
   PTS + REB + AST + STL + BLK - (FGA - FGM) - (FTA - FTM) - TOV
 }
+
+#' Game statistics
+#'
+#' Create dataframe with tallied and calculated game statistics
+#'
+#' @md
+#' @param data    Dataframe that includes columns with tallied game statistics
+#'
+#' @export
+#'
+
+calc_game_stats <- function(data){
+  data |>
+    dplyr::mutate(PTS = calc_points(FTM, FGM2, FGM3),
+                  REB = OREB + DREB,
+                  `FT%` = calc_shooting(FTM, FTA),
+                  FGM = FGM2 + FGM3,
+                  FGA = FGA2 + FGA3,
+                  `FG%` = calc_shooting(FGM, FGA),
+                  `3PT%` = calc_shooting(FGM3, FGA3),
+                  `TS%` = calc_true_shooting(PTS, FTA, FGA),
+                  EFF = calc_efficiency(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV))
+}
+
