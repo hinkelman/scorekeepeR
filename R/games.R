@@ -14,7 +14,7 @@ init_games_table <- function(){
              Date = character(),
              Opponent = character(),
              TeamScore = character(),
-             OpponentScore = characters())
+             OpponentScore = character())
 }
 
 
