@@ -4,14 +4,14 @@
 \alias{add_log_entry}
 \title{Add log entry}
 \usage{
-add_log_entry(game_log, event = events, player, undo = FALSE)
+add_log_entry(game_log, player, event = events, undo = FALSE)
 }
 \arguments{
 \item{game_log}{Game log comprised of vector of event descriptions}
 
-\item{event}{Game event (e.g., FGM, STL, etc.)}
+\item{player}{Player display name}
 
-\item{player}{Player name}
+\item{event}{Game event (e.g., FGM, STL, etc.)}
 
 \item{undo}{Boolean indicating if event was undone}
 }
