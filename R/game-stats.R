@@ -54,6 +54,7 @@ add_game_stats <- function(game_stats_table, player_ids, game_id){
 
 update_game_stat <- function(games_stats_table, player_id, game_id,
                              stat = c("DNP", events), undo = FALSE){
+  if (!is.logical(undo)) stop("undo must be TRUE or FALSE")
   stat = match.arg(stat)
   gst = games_stats_table
   ri = which(gst$PlayerID == player_id & gst$GameID == game_id)
