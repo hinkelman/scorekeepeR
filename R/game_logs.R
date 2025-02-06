@@ -23,18 +23,16 @@ create_log_header <- function(team_id, game_id, date, opponent){
 #' Create entry for appending to game log
 #'
 #' @md
-#' @param undo_bool  Boolean indicating if event was undone
 #' @param event      Game event (e.g., FGM, STL, etc.)
 #' @param player     Player name
+#' @param undo       Boolean indicating if event was undone
 #'
 #' @export
-#' @examples
-#' create_log_entry(FALSE, "FGM3", "Stephen Curry")
 #'
 
-create_log_entry <- function(undo_bool, event = events, player){
-  if (!is.logical(undo_bool)) stop("undo_bool must be TRUE or FALSE")
+create_log_entry <- function(event = events, player, undo = FALSE){
+  if (!is.logical(undo)) stop("undo must be TRUE or FALSE")
   event = match.arg(event)
-  undo = if(undo_bool) "UNDO " else ""
-  paste0(undo, events_desc[events == event], " by ", player)
+  undo_txt = if (undo) "UNDO " else ""
+  paste0(undo_txt, events_desc[events == event], " by ", player)
 }

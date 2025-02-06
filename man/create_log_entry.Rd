@@ -4,19 +4,15 @@
 \alias{create_log_entry}
 \title{Create log entry}
 \usage{
-create_log_entry(undo_bool, event = events, player)
+create_log_entry(event = events, player, undo = FALSE)
 }
 \arguments{
-\item{undo_bool}{Boolean indicating if event was undone}
-
 \item{event}{Game event (e.g., FGM, STL, etc.)}
 
 \item{player}{Player name}
+
+\item{undo}{Boolean indicating if event was undone}
 }
 \description{
 Create entry for appending to game log
-}
-\examples{
-create_log_entry(FALSE, "FGM3", "Stephen Curry")
-
 }
