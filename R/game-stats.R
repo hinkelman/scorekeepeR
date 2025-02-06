@@ -37,26 +37,28 @@ add_game_stats <- function(game_stats_table, player_ids, game_id){
 }
 
 
-#' Increment game stat
+#' Update game stat
 #'
-#' Increment game stat in game_stats_table
+#' Update game stat in game_stats_table
 #'
 #' @md
 #' @param game_stats_table    Game stats table
 #' @param player_id           Unique identifiers of a player from the players table
 #' @param game_id             Unique identifier of a game from the games table
-#' @param stat                Statistic (column) to be incremented
+#' @param stat                Statistic (column) to be changed
+#' @param undo                When true, stat is decremented.
 #'
 #' @export
 #'
 #'
 
-increment_game_stat <- function(games_stats_table, player_id, game_id,
-                                stat = c("DNP", events)){
+update_game_stat <- function(games_stats_table, player_id, game_id,
+                             stat = c("DNP", events), undo = FALSE){
   stat = match.arg(stat)
   gst = games_stats_table
   ri = which(gst$PlayerID == player_id & gst$GameID == game_id)
-  gst[ri, stat] = gst[ri, stat] + 1L
+  change = if (undo) -1L else 1L
+  gst[ri, stat] = gst[ri, stat] + change
   gst
 }
 
