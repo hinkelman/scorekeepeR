@@ -1,4 +1,23 @@
 
+#' Create log header
+#'
+#' Create log header for top of game log
+#'
+#' @md
+#' @param team_id        Unique identifier of a team from the teams table
+#' @param game_id        Unique identifier of a game from the games table
+#' @param date           Date game was played
+#' @param opponent       Opponent of focal team
+#'
+#' @export
+
+
+create_log_header <- function(team_id, game_id, date, opponent){
+  c(paste0("GameID: ", game_id, "; TeamID: ", team_id,
+           "; Date: ", date, "; Opponent: ", opponent),
+    "---------------------------------------------------------------------")
+}
+
 #' Create log entry
 #'
 #' Create entry for appending to game log
