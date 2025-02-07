@@ -45,6 +45,8 @@ add_players_row <- function(players_table){
 create_player_names <- function(data){
   data |>
     dplyr::mutate(
+      across(c(FirstName, LastName, Number),
+             ~ ifelse(grepl("^\\s*$", .x), NA_character_, .x)),
       Name = dplyr::case_when(
         is.na(FirstName) & is.na(LastName) ~ NA_character_,
         is.na(FirstName) ~ LastName,

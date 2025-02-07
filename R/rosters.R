@@ -121,6 +121,8 @@ edit_roster_row = function(roster_view, roster_row, roster_col, value, players_t
   if (roster_col == 2) stop("PlayerID column (roster_col = 2) can't be updated")
 
   if (!is.character(value)) value = as.character(value)
+  # check if value has any number of whitespace
+  if (grepl("^\\s*$", value)) value = NA_character_
 
   team_id = roster_view$TeamID[roster_row]
   player_id = roster_view$PlayerID[roster_row]

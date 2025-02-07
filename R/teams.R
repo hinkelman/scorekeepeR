@@ -82,6 +82,8 @@ delete_teams_row = function(teams_table, teams_row, players_table = NULL, roster
 edit_teams_row = function(teams_table, row, col, value){
   if (col == 1) stop("TeamID column (col = 1) can't be updated")
   if (!is.character(value)) value = as.character(value)
+  # check if value has any number of whitespace
+  if (grepl("^\\s*$", value)) value = NA_character_
   teams_table[row, col] = value
   teams_table
 }
