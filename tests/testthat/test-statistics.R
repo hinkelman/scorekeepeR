@@ -10,7 +10,7 @@ test_that("shooting", {
   expect_equal(calc_shooting(1, 2), 50)
   expect_equal(calc_shooting(2, 3), 67)
   expect_equal(calc_shooting(1:2, 2:3), c(50, 67))
-  expect_equal(calc_shooting(0, 0), 0)
+  expect_equal(calc_shooting(0, 0), NA_real_)
   expect_error(calc_shooting(10, 3))
   expect_error(calc_shooting(2, 1))
   expect_error(calc_shooting(1:2, c(1, 1)))
@@ -26,7 +26,7 @@ test_that("true shooting", {
                                  c(10, 0, 100, 0),
                                  c(10, 1, 0, 20)),
               c(0, 150, 100, 50))
-  expect_equal(calc_true_shooting(10, 0, 0), 0)
+  expect_equal(calc_true_shooting(10, 0, 0), NA_real_)
   expect_error(calc_true_shooting(4, 0, 1))
   expect_error(calc_true_shooting(c(4, 10, 2), rep(0, 3), c(1, 0, 10)))
   expect_error(calc_true_shooting("10", "10", "10"))
