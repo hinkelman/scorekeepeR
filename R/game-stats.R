@@ -79,13 +79,10 @@ update_game_stat <- function(games_stats_table, player_id, game_id,
 
 update_dnp <- function(games_stats_table, player_ids, game_id){
   gst = games_stats_table
-  if (is.null(player_ids)){
-    ri = which(gst$GameID == game_id)
-    gst$DNP[ri] = 0
-  } else {
+  ri_all = which(gst$GameID == game_id)
+  gst$DNP[ri_p] = 0
+  if (!is.null(player_ids)){
     ri_dnp = which(gst$PlayerID %in% player_ids & gst$GameID == game_id)
-    ri_p = which(!(gst$PlayerID %in% player_ids) & gst$GameID == game_id)
-    gst$DNP[ri_p] = 0
     gst$DNP[ri_dnp] = 1
   }
   gst
