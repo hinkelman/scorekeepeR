@@ -43,7 +43,7 @@ add_game_stats <- function(game_stats_table, player_ids, game_id){
 #'
 #' @md
 #' @param game_stats_table    Game stats table
-#' @param player_id           Unique identifiers of a player from the players table
+#' @param player_id           Unique identifier of a player from the players table
 #' @param game_id             Unique identifier of a game from the games table
 #' @param stat                Statistic (column) to be changed
 #' @param undo                When true, stat is decremented.
@@ -53,13 +53,41 @@ add_game_stats <- function(game_stats_table, player_ids, game_id){
 #'
 
 update_game_stat <- function(games_stats_table, player_id, game_id,
-                             stat = c("DNP", events), undo = FALSE){
+                             stat = events, undo = FALSE){
   if (!is.logical(undo)) stop("undo must be TRUE or FALSE")
   stat = match.arg(stat)
   gst = games_stats_table
   ri = which(gst$PlayerID == player_id & gst$GameID == game_id)
   change = if (undo) -1L else 1L
   gst[ri, stat] = gst[ri, stat] + change
+  gst
+}
+
+
+#' Update DNP
+#'
+#' Update DNP (did not play) in game_stats_table
+#'
+#' @md
+#' @param game_stats_table    Game stats table
+#' @param player_ids          Unique identifiers of a player from the players table
+#' @param game_id             Unique identifier of a game from the games table
+#'
+#' @export
+#'
+#'
+
+update_dnp <- function(games_stats_table, player_ids, game_id){
+  gst = games_stats_table
+  if (is.null(player_ids)){
+    ri = which(gst$GameID == game_id)
+    gst$DNP[ri] = 0
+  } else {
+    ri_dnp = which(gst$PlayerID %in% player_ids & gst$GameID == game_id)
+    ri_p = which(!(gst$PlayerID %in% player_ids) & gst$GameID == game_id)
+    gst$DNP[ri_p] = 0
+    gst$DNP[ri_dnp] = 1
+  }
   gst
 }
 
