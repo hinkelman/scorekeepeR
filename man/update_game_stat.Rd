@@ -8,12 +8,12 @@ update_game_stat(
   games_stats_table,
   player_id,
   game_id,
-  stat = c("DNP", events),
+  stat = events,
   undo = FALSE
 )
 }
 \arguments{
-\item{player_id}{Unique identifiers of a player from the players table}
+\item{player_id}{Unique identifier of a player from the players table}
 
 \item{game_id}{Unique identifier of a game from the games table}
 
