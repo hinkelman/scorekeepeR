@@ -12,7 +12,6 @@ init_teams_table <- function(){
   data.frame(TeamID = character(),
              League = character(),
              Team = character(),
-             Coach = character(),
              Season = character())
 }
 
@@ -32,7 +31,6 @@ add_teams_row = function(teams_table){
         data.frame(TeamID = ids::random_id(),
                    League = NA_character_,
                    Team = NA_character_,
-                   Coach = NA_character_,
                    Season = NA_character_))
 }
 
