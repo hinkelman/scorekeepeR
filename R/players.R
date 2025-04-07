@@ -32,35 +32,64 @@ add_players_row <- function(players_table){
                    LastName = NA_character_))
 }
 
-#' Create player names
+#' Replace space
 #'
-#' Create player names for display in app
+#' Replace empty strings with any number of spaces with NA
 #'
 #' @md
-#' @param data    Dataframe that includes columns for FirstName, LastName, and Number
+#' @param x     Vector of strings
 #'
 #' @export
 #'
 
-create_player_names <- function(data){
-  data |>
-    dplyr::mutate(
-      across(c(FirstName, LastName, Number),
-             ~ ifelse(grepl("^\\s*$", .x), NA_character_, .x)),
-      Name = dplyr::case_when(
-        is.na(FirstName) & is.na(LastName) ~ NA_character_,
-        is.na(FirstName) ~ LastName,
-        is.na(LastName) ~ FirstName,
-        .default = paste(FirstName, LastName)),
-      name_tmp = dplyr::case_when(
-        is.na(FirstName) & is.na(LastName) ~ NA_character_,
-        is.na(FirstName) ~ LastName,
-        .default = FirstName),
-      NameNum = dplyr::case_when(
-        is.na(name_tmp) & is.na(Number) ~ NA_character_,
-        is.na(Number) ~ name_tmp,
-        is.na(name_tmp) ~ paste0("#", Number),
-        .default = paste0(name_tmp, " (#", Number, ")"))) |>
-    dplyr::select(-name_tmp)
+replace_space <- function(x){
+  ifelse(grepl("^\\s*$", x), NA_character_, x)
 }
 
+#' Create player name
+#'
+#' Create player name for display in app
+#'
+#' @md
+#' @param first_name    Vector of player first names
+#' @param last_name     Vector of player last names
+#'
+#' @export
+#'
+
+create_player_name <- function(first_name, last_name){
+  first = replace_space(first_name)
+  last = replace_space(last_name)
+  dplyr::case_when(
+    is.na(first) & is.na(last) ~ NA_character_,
+    is.na(first) ~ last,
+    is.na(last) ~ first,
+    .default = paste(first, last))
+}
+
+#' Create player name with number
+#'
+#' Create player name with number for display in app
+#'
+#' @md
+#' @param first_name    Player first name
+#' @param last_name     Player last name
+#' @param number        Player number
+#'
+#' @export
+#'
+
+create_player_namenum <- function(first_name, last_name, numbers){
+  first = replace_space(first_name)
+  last = replace_space(last_name)
+  numbers = replace_space(numbers)
+  name_tmp = dplyr::case_when(
+    is.na(first) & is.na(last) ~ NA_character_,
+    is.na(first) ~ last,
+    .default = first)
+  dplyr::case_when(
+    is.na(name_tmp) & is.na(numbers) ~ NA_character_,
+    is.na(numbers) ~ name_tmp,
+    is.na(name_tmp) ~ paste0("#", numbers),
+    .default = paste0(name_tmp, " (#", numbers, ")"))
+}
