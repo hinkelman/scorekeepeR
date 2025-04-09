@@ -99,7 +99,7 @@ calc_game_stats <- function(data){
                   FGM = FGM2 + FGM3,
                   FGA = FGA2 + FGA3,
                   `FG%` = calc_shooting(FGM, FGA),
-                  `3PT%` = calc_shooting(FGM3, FGA3),
+                  `3P%` = calc_shooting(FGM3, FGA3),
                   `TS%` = calc_true_shooting(PTS, FTA, FGA),
                   EFF = calc_efficiency(PTS, REB, AST, STL, BLK, FGA, FGM, FTA, FTM, TOV))
 }
