@@ -4,7 +4,7 @@
 \alias{create_player_namenum}
 \title{Create player name with number}
 \usage{
-create_player_namenum(first_name, last_name, numbers)
+create_player_namenum(first_name, last_name, number)
 }
 \arguments{
 \item{first_name}{Player first name}

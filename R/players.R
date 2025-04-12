@@ -79,17 +79,17 @@ create_player_name <- function(first_name, last_name){
 #' @export
 #'
 
-create_player_namenum <- function(first_name, last_name, numbers){
+create_player_namenum <- function(first_name, last_name, number){
   first = replace_space(first_name)
   last = replace_space(last_name)
-  numbers = replace_space(numbers)
+  number = replace_space(number)
   name_tmp = dplyr::case_when(
     is.na(first) & is.na(last) ~ NA_character_,
     is.na(first) ~ last,
     .default = first)
   dplyr::case_when(
-    is.na(name_tmp) & is.na(numbers) ~ NA_character_,
-    is.na(numbers) ~ name_tmp,
-    is.na(name_tmp) ~ paste0("#", numbers),
-    .default = paste0(name_tmp, " (#", numbers, ")"))
+    is.na(name_tmp) & is.na(number) ~ NA_character_,
+    is.na(number) ~ name_tmp,
+    is.na(name_tmp) ~ paste0("#", number),
+    .default = paste0(name_tmp, " (#", number, ")"))
 }
