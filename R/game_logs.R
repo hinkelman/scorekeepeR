@@ -13,7 +13,7 @@
 
 
 create_log_header <- function(team_id, game_id, date, opponent){
-  c(paste0("Date: "),
+  c(paste0("Date: ", date),
     paste0("Opponent: ", opponent),
     paste0("TeamID: ", team_id),
     paste0("GameID: ", game_id),
