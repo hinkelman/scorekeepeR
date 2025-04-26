@@ -27,9 +27,9 @@ calc_points <- function(FTM, FGM2, FGM3){
 #'
 
 calc_shooting <- function(made, attempted){
-  if (any(made > attempted)) stop("Made can't be greater than attempted")
+  if (any(made > attempted)) warning("Made is greater than attempted")
   pct = ifelse(attempted == 0, NA, made/attempted * 100)
-  if(any(!is.na(pct) & pct > 100)) stop("Shooting percentage exceeds 100%")
+  if(any(!is.na(pct) & pct > 100)) warning("Shooting percentage exceeds 100%")
   round(pct)
 }
 
@@ -50,7 +50,7 @@ calc_shooting <- function(made, attempted){
 calc_true_shooting <- function(PTS, FTA, FGA){
   # https://en.wikipedia.org/wiki/True_shooting_percentage
   ts = ifelse(FTA == 0 & FGA == 0, NA, PTS/(0.88 * FTA + 2 * FGA) * 100)
-  if(any(!is.na(ts) & ts > 150)) stop("TS% exceeds maximum value (150%)")
+  if(any(!is.na(ts) & ts > 150)) warning("TS% exceeds maximum value (150%)")
   round(ts)
 }
 
