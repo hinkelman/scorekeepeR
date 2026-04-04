@@ -5,7 +5,7 @@
 \title{Update game stat}
 \usage{
 update_game_stat(
-  games_stats_table,
+  game_stats_table,
   player_id,
   game_id,
   stat = events,
@@ -13,6 +13,8 @@ update_game_stat(
 )
 }
 \arguments{
+\item{game_stats_table}{Game stats table}
+
 \item{player_id}{Unique identifier of a player from the players table}
 
 \item{game_id}{Unique identifier of a game from the games table}
@@ -20,8 +22,6 @@ update_game_stat(
 \item{stat}{Statistic (column) to be changed}
 
 \item{undo}{When true, stat is decremented.}
-
-\item{game_stats_table}{Game stats table}
 }
 \description{
 Update game stat in game_stats_table
