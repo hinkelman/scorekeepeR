@@ -32,3 +32,29 @@ test_that("calc_efficiency", {
   expect_equal(calc_efficiency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), 0)
   expect_error(calc_efficiency("15", 9, 3, 1, 0, 14, 6, 4, 3, 1))
 })
+
+test_that("calc_shooting warns when made > attempted", {
+  # two warnings emitted
+  expect_warning(expect_warning(calc_shooting(5, 3)))
+})
+
+test_that("calc_true_shooting warns when TS% > 150", {
+  # PTS = 10, FTA = 0, FGA = 1 -> TS% = 10/(2*1)*100 = 500
+  expect_warning(calc_true_shooting(10, 0, 1))
+})
+
+test_that("calc_game_stats computes all derived columns", {
+  data = data.frame(FTM = 3, FTA = 5, FGM2 = 4, FGA2 = 8,
+                    FGM3 = 2, FGA3 = 5, OREB = 3, DREB = 4,
+                    AST = 5, STL = 2, BLK = 1, TOV = 3)
+  result = calc_game_stats(data)
+  expect_equal(result$PTS, 3 + 4*2 + 2*3)  # 17
+  expect_equal(result$REB, 7)
+  expect_equal(result$FGM, 6)
+  expect_equal(result$FGA, 13)
+  expect_true("FT%" %in% colnames(result))
+  expect_true("FG%" %in% colnames(result))
+  expect_true("3P%" %in% colnames(result))
+  expect_true("TS%" %in% colnames(result))
+  expect_true("EFF" %in% colnames(result))
+})

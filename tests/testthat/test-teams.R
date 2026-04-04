@@ -1,9 +1,9 @@
-teams_table = data.frame(TeamID = as.character(1:3),
+
+test_that("teams table", {
+  teams_table = data.frame(TeamID = as.character(1:3),
                          Season = c("1st", "2nd", "3rd"),
                          League = "40+",
                          Team = "Knuckleheads")
-
-test_that("teams table", {
   expect_equal(nrow(add_teams_row(teams_table)), 4)
   expect_true(all.equal(delete_teams_row(teams_table, 2)$teams_table,
                         data.frame(TeamID = c("1", "3"),
@@ -20,4 +20,11 @@ test_that("teams table", {
                                    League = "40+",
                                    Team = "Knuckleheads"),
                         check.attributes = FALSE))
+})
+
+test_that("edit_teams_row converts whitespace to NA", {
+  tt = data.frame(TeamID = "1", Season = "1st",
+                  League = "40+", Team = "Knuckleheads")
+  result = edit_teams_row(tt, 1, 2, "  ")
+  expect_true(is.na(result$Season[1]))
 })
