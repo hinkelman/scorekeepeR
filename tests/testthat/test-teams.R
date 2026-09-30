@@ -28,3 +28,13 @@ test_that("edit_teams_row converts whitespace to NA", {
   result = edit_teams_row(tt, 1, 2, "  ")
   expect_true(is.na(result$Season[1]))
 })
+
+test_that("edit_teams_row validates row and col", {
+  tt = data.frame(TeamID = c("1", "2"), Season = c("1st", "2nd"),
+                  League = "40+", Team = "Knuckleheads")
+  expect_equal(edit_teams_row(tt, 2L, 2L, "Second")$Season[2], "Second")
+  expect_error(edit_teams_row(tt, 1, "Season", "x"), "numeric")
+  expect_error(edit_teams_row(tt, 1, 5, "x"), "col must be between 2 and 4")
+  expect_error(edit_teams_row(tt, 3, 2, "x"), "row must be between 1 and 2")
+  expect_error(edit_teams_row(tt, 0, 2, "x"), "row must be between 1 and 2")
+})

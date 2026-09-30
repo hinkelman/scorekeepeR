@@ -79,7 +79,13 @@ delete_teams_row = function(teams_table, teams_row, players_table = NULL, roster
 #'
 
 edit_teams_row = function(teams_table, row, col, value){
-  if (col == 1) stop("TeamID column (col = 1) can't be updated")
+  nrows <- nrow(teams_table)
+  ncols <- ncol(teams_table)
+  if (!is.numeric(col)) stop("col must be numeric")
+  if (!is.numeric(row)) stop("row must be numeric")
+  # can't edit TeamID column (col == 1)
+  if (col < 2 || col > ncols) stop(paste0("col must be between 2 and ", ncols))
+  if (row < 1 || row > nrows) stop(paste0("row must be between 1 and ", nrows))
   if (!is.character(value)) value = as.character(value)
   # check if value has any number of whitespace
   if (grepl("^\\s*$", value)) value = NA_character_
