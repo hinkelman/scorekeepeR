@@ -105,7 +105,7 @@ delete_roster_row = function(roster_view, roster_row, players_table, rosters_tab
 #' @md
 #' @param roster_view    Roster view
 #' @param roster_row     Row index of cell to update
-#' @param roster_column  Column index of cell to update
+#' @param roster_col     Column index of cell to update
 #' @param value          Value to place in cell
 #' @param players_table  Players table
 #' @param rosters_table  Rosters table

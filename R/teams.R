@@ -72,7 +72,7 @@ delete_teams_row = function(teams_table, teams_row, players_table = NULL, roster
 #' @md
 #' @param teams_table Teams table
 #' @param row         Row index of cell to update
-#' @param column      Column index of cell to update
+#' @param col         Column index of cell to update
 #' @param value       Value to place in cell
 #'
 #' @export

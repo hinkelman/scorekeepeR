@@ -11,9 +11,9 @@ edit_teams_row(teams_table, row, col, value)
 
 \item{row}{Row index of cell to update}
 
-\item{value}{Value to place in cell}
+\item{col}{Column index of cell to update}
 
-\item{column}{Column index of cell to update}
+\item{value}{Value to place in cell}
 }
 \description{
 Edit row in teams table

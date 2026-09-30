@@ -18,13 +18,13 @@ edit_roster_row(
 
 \item{roster_row}{Row index of cell to update}
 
+\item{roster_col}{Column index of cell to update}
+
 \item{value}{Value to place in cell}
 
 \item{players_table}{Players table}
 
 \item{rosters_table}{Rosters table}
-
-\item{roster_column}{Column index of cell to update}
 }
 \value{
 List of updated players_table, rosters_table, and roster_view.
