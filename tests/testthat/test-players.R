@@ -20,3 +20,24 @@ test_that("players", {
                                          NameNum = c("Hink", "Curry", "Steph", "#32",
                                                      "Steph", "Steph (#32)")))))
 })
+
+test_that("init_players_table returns empty table with expected columns", {
+  pt = init_players_table()
+  expect_equal(nrow(pt), 0)
+  expect_equal(colnames(pt), c("PlayerID", "FirstName", "LastName"))
+})
+
+test_that("add_players_row creates unique ID with NA names", {
+  pt = add_players_row(add_players_row(init_players_table()))
+  expect_equal(nrow(pt), 2)
+  expect_false(any(is.na(pt$PlayerID)))
+  expect_false(pt$PlayerID[1] == pt$PlayerID[2])
+  expect_true(all(is.na(pt$FirstName)))
+  expect_true(all(is.na(pt$LastName)))
+})
+
+test_that("replace_space converts blank strings to NA", {
+  expect_equal(replace_space(c("", "   ", "\t", NA, "Steph", " Steph ")),
+               c(NA, NA, NA, NA, "Steph", " Steph "))
+  expect_equal(replace_space(c(1, NA)), c(1, NA))
+})

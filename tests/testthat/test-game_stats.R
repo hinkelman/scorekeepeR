@@ -101,3 +101,24 @@ test_that("update_dnp keeps DNP as integer", {
   gst = update_dnp(gst, "p1", "g1")
   expect_type(gst$DNP, "integer")
 })
+
+test_that("add_game_stats errors with no player IDs", {
+  expect_error(add_game_stats(init_game_stats_table(), character(0), "g1"),
+               "Need at least one player ID")
+})
+
+test_that("update_game_stat errors on NA or vector undo", {
+  gst = add_game_stats(init_game_stats_table(), "p1", "g1")
+  expect_error(update_game_stat(gst, "p1", "g1", "FTM", undo = NA), "undo must be TRUE or FALSE")
+  expect_error(update_game_stat(gst, "p1", "g1", "FTM", undo = c(TRUE, FALSE)),
+               "undo must be TRUE or FALSE")
+})
+
+test_that("update_game_stat only affects specified game", {
+  gst = init_game_stats_table()
+  gst = add_game_stats(gst, "p1", "g1")
+  gst = add_game_stats(gst, "p1", "g2")
+  gst = update_game_stat(gst, "p1", "g1", "FTM")
+  expect_equal(gst$FTM[gst$GameID == "g1"], 1L)
+  expect_equal(gst$FTM[gst$GameID == "g2"], 0L)
+})

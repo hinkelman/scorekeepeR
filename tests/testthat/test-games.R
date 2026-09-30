@@ -50,3 +50,11 @@ test_that("update_games_row preserves column types", {
   expect_equal(sapply(gt, class), sapply(init_games_table(), class))
   expect_equal(gt$Date, "2024-01-15")
 })
+
+test_that("update_games_row updates all fields of existing row", {
+  gt = update_games_row(init_games_table(), "t1", "g1", "2024-01-15", "Sharks", 55, 48)
+  gt = update_games_row(gt, "t2", "g1", "2024-01-16", "Eagles", 60, 52)
+  expect_equal(nrow(gt), 1)
+  expect_equal(unlist(gt[1, ], use.names = FALSE),
+               c("t2", "g1", "2024-01-16", "Eagles", "60", "52"))
+})

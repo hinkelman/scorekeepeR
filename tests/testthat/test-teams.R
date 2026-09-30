@@ -60,3 +60,25 @@ test_that("delete_teams_row removes team's roster and orphaned players", {
   # p1 only on t1 so removed; p2 still on t2 so kept
   expect_equal(result$players_table$PlayerID, "p2")
 })
+
+test_that("init_teams_table returns empty table with expected columns", {
+  tt = init_teams_table()
+  expect_equal(nrow(tt), 0)
+  expect_equal(colnames(tt), c("TeamID", "League", "Team", "Season"))
+})
+
+test_that("add_teams_row creates unique ID with NA fields", {
+  tt = add_teams_row(add_teams_row(init_teams_table()))
+  expect_equal(nrow(tt), 2)
+  expect_false(any(is.na(tt$TeamID)))
+  expect_false(tt$TeamID[1] == tt$TeamID[2])
+  expect_true(all(is.na(tt[, c("League", "Team", "Season")])))
+})
+
+test_that("delete_teams_row works without players and rosters tables", {
+  tt = data.frame(TeamID = c("t1", "t2"), League = "L", Team = "T", Season = "S")
+  result = delete_teams_row(tt, 1)
+  expect_equal(result$teams_table$TeamID, "t2")
+  expect_equal(nrow(result$players_table), 0)
+  expect_equal(nrow(result$rosters_table), 0)
+})
