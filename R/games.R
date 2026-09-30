@@ -38,8 +38,9 @@ init_games_table <- function(){
 update_games_row = function(games_table, team_id, game_id, date, opponent,
                             team_score, opponent_score){
   ri = if (game_id %in% games_table$GameID) which(games_table$GameID == game_id) else nrow(games_table) + 1
-  games_table[ri,] = list(team_id, game_id, date, opponent, as.numeric(team_score),
-                          as.numeric(opponent_score))
+  games_table[ri,] = list(as.character(team_id), as.character(game_id),
+                          as.character(date), as.character(opponent),
+                          as.integer(team_score), as.integer(opponent_score))
   games_table
 }
 

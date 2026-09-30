@@ -95,3 +95,9 @@ test_that("update_dnp only affects specified game", {
   expect_equal(gst$DNP[gst$PlayerID == "p1" & gst$GameID == "g1"], 1)
   expect_equal(gst$DNP[gst$PlayerID == "p1" & gst$GameID == "g2"], 0)
 })
+
+test_that("update_dnp keeps DNP as integer", {
+  gst = add_game_stats(init_game_stats_table(), c("p1", "p2"), "g1")
+  gst = update_dnp(gst, "p1", "g1")
+  expect_type(gst$DNP, "integer")
+})

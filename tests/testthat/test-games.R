@@ -43,3 +43,10 @@ test_that("update_games_row converts scores to numeric", {
   expect_true(is.numeric(gt$TeamScore))
   expect_true(is.numeric(gt$OpponentScore))
 })
+
+test_that("update_games_row preserves column types", {
+  gt = update_games_row(init_games_table(), "t1", "g1", as.Date("2024-01-15"),
+                        "Sharks", "55", 48)
+  expect_equal(sapply(gt, class), sapply(init_games_table(), class))
+  expect_equal(gt$Date, "2024-01-15")
+})
