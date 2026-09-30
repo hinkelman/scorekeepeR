@@ -34,7 +34,7 @@ create_log_header <- function(team_id, game_id, date, opponent){
 #'
 
 add_log_entry <- function(game_log, player, event = events, undo = FALSE){
-  if (!is.logical(undo)) stop("undo must be TRUE or FALSE")
+  if (!(isTRUE(undo) || isFALSE(undo))) stop("undo must be TRUE or FALSE")
   event = match.arg(event)
   undo_txt = if (undo) "UNDO " else ""
   c(game_log, paste0(undo_txt, events_desc[events == event], " by ", player))
