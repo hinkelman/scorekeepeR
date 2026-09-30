@@ -84,7 +84,8 @@ add_roster_row = function(team_id, players_table, rosters_table){
 
 delete_roster_row = function(roster_view, roster_row, players_table, rosters_table){
   if (nrow(roster_view) == 0) stop("Can't delete row from empty roster_view")
-  if (roster_row > nrow(roster_view)) stop("roster_row can't be greater than number of rows in roster_view")
+  if (!is.numeric(roster_row)) stop("roster_row must be numeric")
+  if (roster_row < 1 || roster_row > nrow(roster_view)) stop(paste0("roster_row must be between 1 and ", nrow(roster_view)))
   team_id = roster_view$TeamID[roster_row]
   player_id = roster_view$PlayerID[roster_row]
 
@@ -118,8 +119,14 @@ delete_roster_row = function(roster_view, roster_row, players_table, rosters_tab
 edit_roster_row = function(roster_view, roster_row, roster_col, value, players_table, rosters_table){
   # don't use row and col as indices b/c updating underlying tables, not the view directly
 
+  nrows <- nrow(roster_view)
+  ncols <- ncol(roster_view)
+  if (!is.numeric(roster_col)) stop("roster_col must be numeric")
+  if (!is.numeric(roster_row)) stop("roster_row must be numeric")
   if (roster_col == 1) stop("TeamID column (roster_col = 1) can't be updated")
   if (roster_col == 2) stop("PlayerID column (roster_col = 2) can't be updated")
+  if (roster_col < 3 || roster_col > ncols) stop(paste0("roster_col must be between 3 and ", ncols))
+  if (roster_row < 1 || roster_row > nrows) stop(paste0("roster_row must be between 1 and ", nrows))
 
   if (!is.character(value)) value = as.character(value)
   # check if value has any number of whitespace

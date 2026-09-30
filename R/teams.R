@@ -51,7 +51,8 @@ add_teams_row = function(teams_table){
 
 delete_teams_row = function(teams_table, teams_row, players_table = NULL, rosters_table = NULL){
   if (nrow(teams_table) == 0) stop("Can't delete row from empty teams_table")
-  if (teams_row > nrow(teams_table)) stop("teams_row can't be greater than number of rows in teams_table")
+  if (!is.numeric(teams_row)) stop("teams_row must be numeric")
+  if (teams_row < 1 || teams_row > nrow(teams_table)) stop(paste0("teams_row must be between 1 and ", nrow(teams_table)))
   if (is.null(players_table)) players_table = init_players_table()
   if (is.null(rosters_table)) rosters_table = init_rosters_table()
 

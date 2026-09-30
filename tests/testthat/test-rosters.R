@@ -99,3 +99,36 @@ test_that("edit_roster_row errors on protected columns", {
   expect_error(edit_roster_row(rv, 1, 1, "new_team", players_table, rosters_table))
   expect_error(edit_roster_row(rv, 1, 2, "new_player", players_table, rosters_table))
 })
+
+test_that("delete_roster_row validates roster_row", {
+  rv = create_roster_view("t1", players_table, rosters_table)
+  expect_error(delete_roster_row(rv, 0, players_table, rosters_table),
+               "roster_row must be between 1 and 2")
+  expect_error(delete_roster_row(rv, -1, players_table, rosters_table),
+               "roster_row must be between 1 and 2")
+  expect_error(delete_roster_row(rv, 3, players_table, rosters_table),
+               "roster_row must be between 1 and 2")
+  expect_error(delete_roster_row(rv, "1", players_table, rosters_table), "numeric")
+})
+
+test_that("edit_roster_row validates roster_row and roster_col", {
+  rv = create_roster_view("t1", players_table, rosters_table)
+  expect_error(edit_roster_row(rv, 1, "FirstName", "Z", players_table, rosters_table),
+               "roster_col must be numeric")
+  expect_error(edit_roster_row(rv, "1", 3, "Z", players_table, rosters_table),
+               "roster_row must be numeric")
+  expect_error(edit_roster_row(rv, 1, 6, "Z", players_table, rosters_table),
+               "roster_col must be between 3 and 5")
+  expect_error(edit_roster_row(rv, 0, 3, "Z", players_table, rosters_table),
+               "roster_row must be between 1 and 2")
+  expect_error(edit_roster_row(rv, 3, 3, "Z", players_table, rosters_table),
+               "roster_row must be between 1 and 2")
+})
+
+test_that("edit_roster_row updates last name and roster view", {
+  rv = create_roster_view("t1", players_table, rosters_table)
+  # col 4 = LastName
+  result = edit_roster_row(rv, 2, 4, "Jonas", players_table, rosters_table)
+  expect_equal(result$players_table$LastName[result$players_table$PlayerID == "p2"], "Jonas")
+  expect_equal(result$roster_view$LastName[result$roster_view$PlayerID == "p2"], "Jonas")
+})
