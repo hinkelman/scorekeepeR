@@ -30,6 +30,7 @@ init_game_stats_table <- function(){
 #'
 
 add_game_stats <- function(game_stats_table, player_ids, game_id){
+  if (length(player_ids) == 0) stop("Need at least one player ID")
   tmp = data.frame(PlayerID = player_ids,
                    GameID = game_id)
   for (i in c("DNP", events)) tmp[[i]] = 0L
