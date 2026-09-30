@@ -84,6 +84,7 @@ add_roster_row = function(team_id, players_table, rosters_table){
 
 delete_roster_row = function(roster_view, roster_row, players_table, rosters_table){
   if (nrow(roster_view) == 0) stop("Can't delete row from empty roster_view")
+  if (roster_row > nrow(roster_view)) stop("roster_row can't be greater than number of rows in roster_view")
   team_id = roster_view$TeamID[roster_row]
   player_id = roster_view$PlayerID[roster_row]
 
