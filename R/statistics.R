@@ -27,7 +27,7 @@ calc_points <- function(FTM, FGM2, FGM3){
 #'
 
 calc_shooting <- function(made, attempted){
-  if (any(made > attempted)) warning("Made is greater than attempted")
+  if (any(made > attempted, na.rm = TRUE)) warning("Made is greater than attempted")
   pct = ifelse(attempted == 0, NA, made/attempted * 100)
   if(any(!is.na(pct) & pct > 100)) warning("Shooting percentage exceeds 100%")
   round(pct)
